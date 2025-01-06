@@ -1,123 +1,94 @@
-# **Documento di Analisi dei Dati**
+# Documento di Analisi dei Dati
 
-## **1. Obiettivi**
-L'obiettivo di questa analisi è identificare, collezionare ed esplorare i dati necessari per predire il rischio di malattie cardiache e identificare i fattori principali che influenzano questa condizione.
+## 1. Obiettivi
 
----
-
-## **2. Dataset**
-### **Fonte**
-- Nome: **Heart Disease Dataset**
-- Fonte: [Kaggle](https://www.kaggle.com/datasets/oktayrdeki/heart-disease)
-
-### **Caratteristiche del Dataset**
-- **Formato**: CSV
-- **Numero di record**: 10,000
-- **Numero di colonne**: 21
-- **Significato delle colonne**:
-  - **Age**: Età dell'individuo.
-  - **Gender**: Genere (Maschio o Femmina).
-  - **Blood Pressure**: Pressione sanguigna (sistolica).
-  - **Cholesterol Level**: Livello di colesterolo totale.
-  - **Exercise Habits**: Abitudini di esercizio fisico (Basso, Medio, Alto).
-  - **Smoking**: Fumatore (Sì o No).
-  - **Family Heart Disease**: Storia familiare di malattie cardiache (Sì o No).
-  - **Diabetes**: Presenza di diabete (Sì o No).
-  - **BMI**: Indice di massa corporea.
-  - **High Blood Pressure**: Pressione alta (Sì o No).
-  - **Low HDL Cholesterol**: HDL basso (Sì o No).
-  - **High LDL Cholesterol**: LDL alto (Sì o No).
-  - **Alcohol Consumption**: Livello di consumo di alcol (Nessuno, Basso, Medio, Alto).
-  - **Stress Level**: Livello di stress (Basso, Medio, Alto).
-  - **Sleep Hours**: Ore di sonno giornaliere.
-  - **Sugar Consumption**: Livello di consumo di zucchero (Basso, Medio, Alto).
-  - **Triglyceride Level**: Livello di trigliceridi.
-  - **Fasting Blood Sugar**: Livello di zucchero a digiuno.
-  - **CRP Level**: Livello di proteina C-reattiva (marker di infiammazione).
-  - **Homocysteine Level**: Livello di omocisteina.
-  - **Heart Disease Status**: Presenza di malattie cardiache (Sì o No).
+L'obiettivo di questa analisi è esplorare e preparare un dataset per la previsione della presenza di malattie cardiovascolari. Attraverso l'esplorazione dei dati, si cercherà di identificare i fattori principali che influenzano questa condizione.
 
 ---
 
-## **3. Esplorazione dei Dati**
-### **Statistiche di Base**
-- **Dimensione del dataset**: 10,000 record, 21 colonne.
-- **Formato**: CSV con dati numerici e categorici.
+## 2. Dataset
 
-### **Distribuzione della Variabile Target**
-- **Heart Disease Status**:
-  - `0` (Nessuna malattia cardiaca): **80%**
-  - `1` (Malattia cardiaca): **20%**
+### Fonte
 
-### **Considerazioni sulla distribuzione**
-1. **Sbilanciamento**:
-   - La distribuzione è altamente sbilanciata, con la classe `0` (80%) dominante rispetto alla classe `1` (20%).
-   - Questo può portare a problemi nei modelli di Machine Learning, come la tendenza a favorire la classe dominante.
-2. **Implicazioni per l'analisi**:
-   - Metriche come l'accuratezza potrebbero non essere affidabili per valutare il modello.
-   - Sarà necessario utilizzare strategie per gestire lo sbilanciamento dei dati:
-     - Oversampling della classe `1`.
-     - Undersampling della classe `0`.
-     - Uso di pesi di classe o metriche appropriate come F1-Score o AUC-ROC.
+- **Nome**: Cardiovascular Disease Dataset  
+- **Fonte**: [Kaggle](https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset/data)
 
----
+### Caratteristiche del Dataset
 
-## **4. Feature Engineering**
-Durante l'analisi, sono state create due nuove feature per catturare relazioni complesse nei dati:
+- **Formato**: CSV  
+- **Numero di record**: 70,000  
+- **Numero di colonne**: 12  
 
-1. **Stress_Sleep_Index**:
-   - **Definizione**: Combina il livello di stress (`Stress Level`) e le ore di sonno (`Sleep Hours`) in un unico indicatore.
-   - **Motivazione**:
-     - Studi clinici mostrano che lo stress e il sonno hanno un impatto combinato sulla salute cardiovascolare.
-     - Lo `Stress_Sleep_Index` permette di rappresentare questa relazione complessa.
-   - **Contributo**: Ha mostrato un'importanza predittiva alta (**8.11%**) ed è moderatamente correlata a `Sleep Hours` (-0.52), suggerendo che entrambe le variabili aggiungono valore.
+### Significato delle colonne:
 
-2. **Cholesterol_BMI_Ratio**:
-   - **Definizione**: Rapporto tra i livelli di colesterolo totale (`Cholesterol Level`) e l'indice di massa corporea (`BMI`).
-   - **Motivazione**:
-     - Il colesterolo e il BMI sono indicatori metabolici chiave. Il loro rapporto rappresenta una misura combinata dello stato metabolico.
-   - **Contributo**: Ha mostrato un'importanza predittiva significativa (**7.75%**), superiore a quella di `Cholesterol Level` considerato singolarmente.
+- **age**: Età in giorni.  
+- **height**: Altezza (in cm).  
+- **weight**: Peso (in kg).  
+- **gender**: Genere (1: Donna, 2: Uomo).  
+- **ap_hi**: Pressione arteriosa sistolica.  
+- **ap_lo**: Pressione arteriosa diastolica.  
+- **cholesterol**: Livello di colesterolo (1: normale, 2: sopra il normale, 3: molto sopra il normale).  
+- **gluc**: Livello di glucosio (1: normale, 2: sopra il normale, 3: molto sopra il normale).  
+- **smoke**: Fumatore (0: No, 1: Sì).  
+- **alco**: Consumo di alcol (0: No, 1: Sì).  
+- **active**: Attività fisica (0: No, 1: Sì).  
+- **cardio**: Presenza di malattia cardiovascolare (0: No, 1: Sì).  
 
----
+### Valori Mancanti
 
-## **5. Feature Selection**
-### **Variabili Selezionate per il Modello**
-Le seguenti feature sono state identificate come le più rilevanti sulla base della feature importance calcolata con Random Forest:
+Nessun valore mancante è stato rilevato nel dataset:
 
-1. **CRP Level**: 8.23%
-2. **Homocysteine Level**: 8.19%
-3. **Sleep Hours**: 8.12%
-4. **Stress_Sleep_Index**: 8.11%
-5. **BMI**: 8.05%
-6. **Cholesterol_BMI_Ratio**: 7.75%
-7. **Triglyceride Level**: 7.65%
-8. **Cholesterol Level**: 7.08%
-9. **Fasting Blood Sugar**: 6.98%
-10. **Age**: 6.77%
-
-### **Variabili Escluse**
-Le variabili con importanza predittiva inferiore all'1% sono state escluse per semplificare il modello:
-- **Stress Level**: 1.33%
-- **Smoking_1.0**, **High LDL Cholesterol**, ecc.: <1%.
+| Colonna        | Valori Mancanti |
+|----------------|-----------------|
+| age            | 0               |
+| gender         | 0               |
+| height         | 0               |
+| weight         | 0               |
+| ap_hi          | 0               |
+| ap_lo          | 0               |
+| cholesterol    | 0               |
+| gluc           | 0               |
+| smoke          | 0               |
+| alco           | 0               |
+| cardio         | 0               |
 
 ---
 
-## **6. Qualità dei Dati**
-### **Problemi Identificati**
-1. **Valori mancanti**:
-   - Colonne con valori mancanti significativi:
-     - `Alcohol Consumption` (25.86% di dati mancanti), risolto creando una categoria `Unknown`.
-2. **Formati misti**:
-   - Alcune colonne categoriche (`Gender`, `Exercise Habits`, ecc.) sono state codificate in valori numerici.
-3. **Distribuzione sbilanciata**:
-   - La variabile target (`Heart Disease Status`) è altamente sbilanciata, richiedendo tecniche di bilanciamento.
+## 3. Esplorazione dei Dati
 
----
+### Distribuzione della Variabile Target
 
-## **7. Output**
-Il dataset finale contiene 26 colonne (inclusi le feature derivate) e 10,000 record. Saranno utilizzate le seguenti variabili per il modello di Machine Learning:
-- **CRP Level**, **Homocysteine Level**, **Sleep Hours**, **Stress_Sleep_Index**, **BMI**, **Cholesterol_BMI_Ratio**, **Triglyceride Level**, **Cholesterol Level**, **Fasting Blood Sugar**, e **Age**.
+- **cardio**:
+  - 0 (Nessuna malattia cardiovascolare): ~50%  
+  - 1 (Malattia cardiovascolare): ~50%  
 
-Questa selezione rappresenta le variabili più predittive, bilanciando complessità e performance.
+La distribuzione è bilanciata, rendendo affidabili metriche standard come l'accuracy.
+
+### Distribuzione delle Variabili Principali
+
+- **age** (convertita in anni):  
+  - Range: 30-65 anni.  
+  - Distribuzione concentrata tra i 50 e i 60 anni, con un picco intorno ai 55 anni.  
+
+- **height** e **weight**:  
+  - **height**: Alcuni valori outlier sotto i 120 cm o sopra i 200 cm.  
+  - **weight**: Outlier significativi sopra i 150 kg.  
+
+- **ap_hi** e **ap_lo**:  
+  - Evidenti outlier con valori estremamente alti (es. >2000 per ap_hi).  
+  - Richiedono una verifica accurata e potenziale correzione.  
+
+- **cholesterol** e **gluc**:  
+  - Valori maggiormente concentrati nella categoria 1 (normale), con un minor numero di casi nelle categorie 2 e 3.  
+
+### Matrice di Correlazione
+
+- **age**, **weight**, e **cholesterol** mostrano una correlazione positiva con **cardio**.  
+- Bassa correlazione tra altre variabili come **height** o **ap_lo** con **cardio**.
+
+### Outlier Identificati
+
+- **ap_hi** e **ap_lo** presentano valori anomali elevati (es. >10,000).  
+- **height** e **weight** hanno valori estremi da analizzare e potenzialmente rimuovere o trasformare.  
 
 ---

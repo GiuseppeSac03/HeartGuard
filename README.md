@@ -3,7 +3,7 @@
 HeartGuard is a Machine Learning-powered application designed to predict heart disease risk and provide personalized recommendations to improve heart health.
 
 ## Dataset
-This project uses the [Heart Disease dataset](https://www.kaggle.com/datasets/oktayrdeki/heart-disease) from Kaggle, which includes key factors such as age, cholesterol levels, exercise habits, and more.
+This project uses the [Cardiovascular Disease Dataset](https://www.kaggle.com/datasets/sulianova/cardiovascular-disease-dataset/data) from Kaggle, which includes key factors such as age, cholesterol levels, exercise habits, and more.
 
 ## Features
 - Predicts the likelihood of heart disease based on user data.
