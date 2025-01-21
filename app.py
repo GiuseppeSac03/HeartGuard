@@ -402,6 +402,18 @@ elif st.session_state.step == 7:
                         fig = ax.figure
                         st.pyplot(fig)
 
+                        # Identifica le feature più influenti
+                        shap_values_df = pd.DataFrame({
+                            "Feature": model_features,
+                            "SHAP Value": shap_values.values[0]
+                        }).sort_values(by="SHAP Value", key=abs, ascending=False)
+
+                        top_features = shap_values_df["Feature"].head(5).tolist()
+
+                        st.markdown("### Consigli Personalizzati")
+                        st.write("Ecco alcune raccomandazioni basate sulle feature più influenti:")
+                        generate_suggestions(top_features)
+
             except Exception as e:
                 st.error(f"Errore durante la generazione della spiegazione SHAP: {e}")
         else:
