@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 import joblib
-import lime
-import lime.lime_tabular
 import matplotlib.pyplot as plt
 import shap  # <--- Import SHAP
 
